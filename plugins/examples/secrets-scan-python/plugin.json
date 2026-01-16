@@ -1,0 +1,11 @@
+{
+  "id": "secrets-scan-python",
+  "name": "Example Secrets Scan (Python)",
+  "version": "0.1.0",
+  "description": "Example defensive plugin scaffold that would scan for hard-coded secrets.",
+  "entry": "run.py",
+  "capabilities": ["secrets-scan"],
+  "supported_formats": ["text"],
+  "author": "SENTRYBOX",
+  "license": "Apache-2.0"
+}
