@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SentryBox Scan Request",
+  "type": "object",
+  "required": ["target", "requestId"],
+  "properties": {
+    "requestId": { "type": "string" },
+    "target": {
+      "type": "object",
+      "required": ["path"],
+      "properties": {
+        "path": { "type": "string" },
+        "type": { "type": "string" }
+      }
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "maxDurationMs": { "type": "integer" }
+      }
+    }
+  }
+}

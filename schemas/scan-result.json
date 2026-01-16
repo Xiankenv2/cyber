@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SentryBox Scan Result",
+  "type": "object",
+  "required": ["pluginId", "findings", "stats"],
+  "properties": {
+    "pluginId": { "type": "string" },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "finding.json" }
+    },
+    "stats": {
+      "type": "object",
+      "required": ["durationMs", "scannedFiles"],
+      "properties": {
+        "durationMs": { "type": "integer" },
+        "scannedFiles": { "type": "integer" }
+      }
+    },
+    "error": { "type": "string" }
+  }
+}

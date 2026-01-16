@@ -1,0 +1,11 @@
+{
+  "id": "code.sqli_lint",
+  "version": "0.1.0",
+  "name": "SQL Injection Linter",
+  "author": "SentryBox Team",
+  "description": "Detects non-parameterized SQL queries in code.",
+  "capabilities": ["fs_read"],
+  "tier": "native-fast",
+  "runtime": "native",
+  "command": ["./bin/sqli_lint_runner"]
+}
