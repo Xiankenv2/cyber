@@ -1,145 +1,46 @@
-# SENTRYBOX – TODO
+# SENTRYBOX
 
-Dit document beschrijft de roadmap en concrete taken voor de ontwikkeling van **SENTRYBOX**  
-(Core in C, uitbreidbaar via plugins in meerdere talen).
+SENTRYBOX is a **defensive security testing** framework designed to run trusted plugins against codebases and artifacts you own or are explicitly authorized to test.
+It focuses on safe, auditable workflows for security checks, not offensive exploitation.
 
----
+> ⚠️ **Authorized use only**: Use SENTRYBOX only on systems, repositories, or data you own or have explicit permission to test.
 
-## v0.1 – MVP (Plugin runner & basis CLI)
+## Goals (MVP)
 
-### Repository & basis
-- [ ] Git repository aanmaken (`sentrybox`)
-- [ ] Basis mappenstructuur toevoegen
-- [ ] `.gitignore` toevoegen (C build, Python, Node, IDE)
-- [ ] `README.md` met korte uitleg + voorbeeld
-- [ ] `LICENSE` (Apache-2.0 aanbevolen)
-- [ ] `SECURITY.md`
-- [ ] `CONTRIBUTING.md`
+- Lightweight CLI (`sentryctl`) to discover and run plugins.
+- Clear JSON contracts for requests and findings.
+- Human-readable and machine-readable output.
 
----
+## Quick start
 
-### Schema’s (contract = stabiliteit)
-- [ ] `schemas/plugin.schema.json`
-- [ ] `schemas/request.schema.json`
-- [ ] `schemas/finding.schema.json`
-- [ ] Severity levels vastleggen:
-  - `info`
-  - `low`
-  - `medium`
-  - `high`
-  - `critical`
+```bash
+mkdir -p build
+cmake -S . -B build
+cmake --build build
+./build/sentryctl --help
+```
 
----
+## CLI (initial)
 
-### sentryctl (Core CLI – C)
-- [ ] Project setup (CMake)
-- [ ] `sentryctl --help`
-- [ ] Plugin discovery (`plugins/**/plugin.json`)
-- [ ] `sentryctl plugin list`
-- [ ] `sentryctl plugin info <plugin_id>`
-- [ ] Capability resolver (welke plugin hoort bij welke task)
+```
+usage: sentryctl <command> [options]
 
----
+commands:
+  help                    Show this help message
+  version                 Print version information
+  plugin list             List available plugins
+  plugin info <plugin_id> Show plugin details
 
-### Exec plugin runner
-- [ ] Plugin process starten (`entry`)
-- [ ] JSON request schrijven naar stdin
-- [ ] JSON response lezen van stdout
-- [ ] Timeout ondersteuning (bv. 30s)
-- [ ] Exitcode + error handling
-- [ ] Output:
-  - [ ] Human readable
-  - [ ] `--json` flag
+notes:
+  This CLI is a safe scaffold for defensive testing workflows.
+```
 
----
+## Roadmap (high-level)
 
-### Voorbeeld plugins (community-proof)
-- [ ] `plugins/examples/secrets-scan-python`
-  - [ ] `plugin.json`
-  - [ ] `run.py`
-  - [ ] Simpele regex secret detectie
-- [ ] `plugins/examples/c-unsafe-scan`
-  - [ ] `plugin.json`
-  - [ ] Detecteer `strcpy`, `gets`, `sprintf`
+- Plugin discovery and schema validation.
+- Plugin execution with timeouts and JSON I/O.
+- Baselines, reporting, and opt-in automation.
 
----
+## License
 
-### Tests (minimaal)
-- [ ] `tools/dev/run_tests.sh`
-- [ ] Testdata map
-- [ ] Golden JSON output test
-- [ ] Plugin runner test
-
----
-
-## v0.2 – Config & baselines
-
-- [ ] `.sentrybox.json` config bestand
-- [ ] Enabled/disabled plugins per project
-- [ ] Exclude paths
-- [ ] `sentryctl baseline save --profile <name>`
-- [ ] `sentryctl baseline diff --profile <name>`
-- [ ] Finding deduplication (hash-based)
-
----
-
-## v0.3 – Database & reporting
-
-- [ ] SQLite database integratie
-- [ ] Tabellen:
-  - [ ] runs
-  - [ ] findings
-  - [ ] plugins
-- [ ] `sentryctl report export --json`
-- [ ] `sentryctl report export --html`
-- [ ] Severity summary + stats
-
----
-
-## v0.4 – Daemon & scheduling
-
-- [ ] `sentryboxd` daemon (C)
-- [ ] IPC tussen `sentryctl` en daemon
-- [ ] `start / stop / status`
-- [ ] Scheduled scans (cron-like)
-- [ ] Watch-mode (file changes)
-
----
-
-## v0.5 – Plugin ecosysteem
-
-- [ ] Plugin SDK documentatie
-- [ ] `sentryctl plugin init`
-  - [ ] Python
-  - [ ] Node.js
-  - [ ] C / C++
-- [ ] Plugin packaging (`pack` / `install`)
-- [ ] API version checks
-- [ ] Community plugin guidelines
-
----
-
-## v1.0 – Security hardening & advanced features
-
-- [ ] Native plugin sandbox policy
-- [ ] Signed plugins (trusted)
-- [ ] Fuzzing framework
-- [ ] Hardening profiles
-- [ ] SBOM generator
-- [ ] CI/CD templates (GitHub Actions)
-
----
-
-## Ideeën voor later
-- [ ] Web UI dashboard
-- [ ] REST API
-- [ ] Cloud runners
-- [ ] Vulnerability feed import
-- [ ] Auto-remediation (opt-in)
-
----
-
-🛡️ **Core principe:**  
-> *Core blijft klein en stabiel — alles is een plugin.*
-
-
+Apache-2.0 (recommended). Add a license file when you are ready to publish.
